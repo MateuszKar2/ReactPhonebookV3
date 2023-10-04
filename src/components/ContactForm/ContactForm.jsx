@@ -1,34 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import { v4 as uuid } from 'uuid';
 import styles from './ContactForm.module.css';
 
 
-class ContactForm extends React.Component {
-    static propTypes = {
-      onSubmit: PropTypes.func.isRequired,
-    };
-  
-    state = {
-      name: '',
-      number: '',
-    };
-  
-    handleChange = e => {
-      this.setState({ [e.target.name]: e.target.value });
-    };
-  
-    handleSubmit = e => {
-      e.preventDefault();
-      this.props.onSubmit({ ...this.state, id: uuid() });
-      this.setState({ name: '', number: '' });
-    };
-  
-    render() {
-      const { name, number } = this.state;
-  
+const ContactForm = ({ onSubmit }) => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'number':
+        setNumber(value);
+        break;
+
+      default:
+        return;
+    }
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    onSubmit({ name, number, id: uuid() });
+    setName('');
+    setNumber('');
+  };
+
       return (
-        <form className={styles.form} onSubmit={this.handleSubmit}>
+      <div>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <div>
             <label className={styles.label} htmlFor="name">
               Name
@@ -52,7 +57,7 @@ class ContactForm extends React.Component {
               type="tel"
               name="number"
               value={number}
-              onChange={this.handleChange}
+              onChange={handleChange}
               placeholder="Phone number"
               required
             />
@@ -61,9 +66,10 @@ class ContactForm extends React.Component {
             Add contact
           </button>
         </form>
+      </div>
       );
     }
-  }
+  
 
 ContactForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
