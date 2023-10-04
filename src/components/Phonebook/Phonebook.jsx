@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState} from 'react';
 import ContactForm from 'components/ContactForm/ContactForm';
 import ContactList from 'components/ContactList/ContactList';
 import Filter from 'components/Filter/Filter';
@@ -13,7 +13,7 @@ const Phonebook = () => {
   useEffect(() =>  {
     const storedContacts = localStorage.getItem('contacts');
     if (storedContacts) {
-      setState(JSON.parse(storedContacts));
+      setContacts(JSON.parse(storedContacts));
     }
   }, []);
 
