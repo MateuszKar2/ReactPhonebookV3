@@ -45,7 +45,7 @@ const Phonebook = () => {
   };
 
   const handleChangeFilter = e => {
-    this.setFilter(e.target.value);
+    setFilter(e.target.value);
   };
 
   const getFilteredContacts = () => {
@@ -56,7 +56,7 @@ const Phonebook = () => {
     );
   };
 
-  const filteredContacts = this.getFilteredContacts();
+  const filteredContacts = getFilteredContacts();
 
 return (
    <div>
