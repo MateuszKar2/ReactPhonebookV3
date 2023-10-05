@@ -43,7 +43,7 @@ const ContactForm = ({ onSubmit }) => {
               type="text"
               name="name"
               value={name}
-              onChange={this.handleChange}
+              onChange={handleChange}
               placeholder="Name"
               required
             />
